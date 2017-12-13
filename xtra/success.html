@@ -1,0 +1,86 @@
+<!DOCTYPE HTML>
+<html class="no-js" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Success</title>
+    <meta name="description" content="">
+    <link rel="icon" href="http://www.csun.edu/sites/default/themes/csun/favicon.ico" type="image/x-icon">
+
+    <!-- CSUN Branded Fonts -->
+    <script src="http://use.typekit.net/gfb2mjm.js"></script>
+    <script>
+        try {
+            Typekit.load();
+        } catch (e) {}
+    </script>
+
+    <link rel="stylesheet" href="http://cdn.metalab.csun.edu/metaphor/css/metaphor.css">
+    <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+    <nav class="primary-nav primary-nav--cream">
+        <div class="container">
+            <div class="primary-nav__mobile">
+                <div class="primary-nav__btn">
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                </div>
+                <div class="primary-nav__brand"><span class="sr-only">California State University, Northridge (CSUN)</span></div>
+            </div>
+            <ul class="primary-nav__links">
+                <li><a class="primary-nav__link" href="login.html">Home</a></li>
+                <li><a class="primary-nav__link active" href="inbox.html">Mail</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4" style="margin-top:8.5%;">
+                <ul class="list">
+                    <li class="list__item"><a href="inbox.html">Inbox <span class="tag">2</span></a> </li>
+                    <li class="list__item"><a href="trash.html">Trash<span class="tag">3</span></a></li>
+                    <li class="list__item"><a href="spam.html">Spam<span class="tag">3</span></a></li>
+                    <li class="list__item"><a href="compose.html">Compose New Message</a></li>
+                </ul>
+            </div>
+            <div class="col-md-8">
+                <h1 class="success">Compose New Message</h1>
+                <div class="alert alert--success" role="alert">
+                    <p> <b>Wonderful!</b> Your message has been sent!</p>
+                      <a href="inbox.html">Return to your inbox</a>
+                      or
+                      <a href="compose.html">send another message</a>
+                    </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Your Code Here & Start Building ;D -->
+    <script src="http://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+        crossorigin="anonymous"></script>
+    <script src="http://cdn.metalab.csun.edu/metaphor/js/metaphor.js"></script>
+    <!-- My previous implementation using JQuery
+         <script>
+        $(function () {
+            $(".msg-btn").click(() => {
+                $(".compose-content").remove();
+                $(".success").after(
+                    `<div class="alert alert--success" role="alert">
+                    <p> <b>Wonderful!</b> Your message has been sent!</p>
+                      <a href="inbox.html">Return to your inbox</a>
+                      or
+                      <a href="compose.html">send another message</a>
+                    </div>`
+                );
+            });
+        });
+    </script> -->
+</body>
+
+</html>

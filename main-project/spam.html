@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Spam</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="font-awesome-4.7.0/css/font-awesome.css">
+    <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- navbar     -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="index.html">Mail Monkey</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+            aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="login.html">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Mail</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+
+        <div class="row main-content">
+
+            <div class="col-md-4 list-group" style="margin-top:5%;">
+                <a href="inbox.html" class="list-group-item list-group-item-action">Inbox<span class="badge badge-secondary">4</span></a>
+                <a href="trash.html" class="list-group-item list-group-item-action">Trash<span class="badge badge-secondary">2</span></a>
+                <a href="spam.html" class="list-group-item active list-group-item-action">Spam<span class="badge badge-secondary">3</span></a>
+                <a href="compose.html" class="list-group-item list-group-item-info list-group-item-action">Compose New Message</a>
+            </div>
+
+            <div class="col-md-8">
+                <form class="form-inline justify-content-end" style="margin-bottom:5px;">
+                    <h1 class="mr-auto">Spam</h1>
+                    <span class="input-group-addon" id="basic-addon1"><i class="fa fa-search" aria-hidden="true" style="font-size:1.2em"></i></span>
+                    <input class="form-control mr-sm-2" type="text" placeholder="Search spam" aria-label="Search">
+                    <a href="#" class="btn btn-success my-2 my-sm-0">Search</a>
+                </form>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Sender</th>
+                            <th>Title</th>
+                            <th>Received</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="form-check">
+                                    <label class="form-check-label">
+                                    <input class="form-check-input" type="checkbox" value="">
+                                    </label>
+                                </div>
+                            </td>
+                            <td>Ben Dover</td>
+                            <td>$1000 has been deposited to your account</td>
+                            <td>April 1, 2017</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="form-check">
+                                    <label class="form-check-label">
+                                    <input class="form-check-input" type="checkbox" value="">
+                                    </label>
+                                </div>
+                            </td>
+                            <td>Harry Cox</td>
+                            <td>Pills to make you code like a monster ( ͡° ͜ʖ ͡°)</td>
+                            <td>October 31, 2016</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="form-check">
+                                    <label class="form-check-label">
+                                    <input class="form-check-input" type="checkbox" value="">
+                                    </label>
+                                </div>
+                            </td>
+                            <td>Chris P. Bacon</td>
+                            <td>Seeking Quality Chefs</td>
+                            <td>September 18, 2014</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="float-right">
+            <a href="#" class="btn main-btn btn-primary">Move to Inbox</a>
+            <a href="#" class="btn main-btn btn-danger">Delete</a>
+        </div>
+        <img class="col-3 d-none d-lg-block" src="img/mnkspam.jpg" alt="trash monkey" style="margin-top:.8em">
+
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1"
+        crossorigin="anonymous"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,55 @@
+.main-content{
+    margin-top:1%;
+}
+
+h1, nav{
+    font-family: 'Lobster', cursive;
+}
+.badge{
+    float:right;
+    font-size: .9em;
+}
+
+tbody > tr:nth-child(-n+4){
+    font-weight: bold;
+    color:#fff900;    
+}
+
+/*reset bold styles*/
+tbody.trash > tr:nth-child(-n+4){
+    font-weight: 400;
+    color:white;
+}
+
+tbody tr:hover{
+    cursor: pointer;
+    background: rgba(5, 39, 133, 0.73);
+}
+
+.bg-light{
+    background-color:#FFC107 !important;
+}
+
+body{
+    background-color:rgba(56, 90, 185, 0.73);
+    color:white;
+}
+
+.fa{
+    margin-left:.2em;
+}
+
+.jumbotron{
+    margin-top:5%;
+    background-color:rgb(255, 141, 0);
+}
+
+img{
+    width:220px;
+    height:300px;
+}
+
+.emoj img{
+    width:250px;
+    height: 250px;
+}

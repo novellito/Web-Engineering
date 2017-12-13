@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Simple Hangman</title>
+
+    <style>
+        #out {
+            text-align: center;
+        }
+
+        .game {
+            position: relative;
+            width: 300px;
+            margin: 0 auto;
+        }
+
+        .container {
+            width: 60%;
+            margin: 0 auto;
+        }
+
+        p,
+        .word,
+        .misses {
+            font-size: 1.3em;
+        }
+
+        .rope1,
+        .rope2,
+        .head,
+        .neck,
+        .torso,
+        .leg1,
+        .leg2 {
+            font-size: 2em;
+            visibility: hidden;
+            text-align: center;
+        }
+
+        button {
+            margin: 10px 2px;
+        }
+
+        .newGame {
+            background-color: #6047b1;
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+
+        .newGame:hover {
+            background-color: #998bc9;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="out">
+        <h1>Simple Hangman</h1>
+        <div class="game">
+            <div class="rope1">|</div>
+            <div class="rope2">|</div>
+            <div class="head">O</div>
+            <div class="neck">--|--</div>
+            <div class="torso">|</div>
+            <span class="leg1">/ </span>
+            <span class="leg2">\</span>
+        </div>
+        <div class="gameRes"></div>
+        <p>Word: <span class="word"></span></p>
+        <p>Misses:<span class="misses"> 0 / 7</span></p>
+        <div class="container">
+            <hr>
+        </div>
+        <button class="newGame">Start New Game</button>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function () {
+
+            //load up buttons
+            for (let i = 65; i <= 90; i++) {
+                $(".container").append(
+                    `<button value="${String.fromCharCode(i)}" class="letter" style="visibility:inline">${String.fromCharCode(i)}</button>`
+                )
+            }
+            $(".letter:last-child").after("<hr>");
+
+            let dictionary = ['bread', 'potato', 'cabbage', 'carrot', 'apple', 'orange', 'banana', 'eggs',
+                'basketball', 'football', 'baseball',
+                'bicycle', 'boxing', 'cherry', 'blueberry', 'onion', 'pancake', 'omlette', 'burrito',
+                'sushi'
+            ];
+
+            let misses = 0;
+            let wordContainer = [];
+            let currWord = dictionary[getIndex()];
+
+            makeSpace(currWord);
+
+            $(".letter").click(function () {
+
+                if (currWord.includes(this.innerHTML.toLowerCase())) {
+
+                    let currLetter = this.innerHTML.toLowerCase(); //retrieve current selected letter
+
+                    for (let i = 0; i < currWord.length; i++) {
+
+                        if (currWord[i] === currLetter) {
+                            wordContainer[i] = currLetter; //replace word container with the current letter
+                            $(".word").empty();
+                            $(".word").append(wordContainer.join(' ')); //update game state
+                            $(this).css("visibility", "hidden");
+
+                            if (currWord === wordContainer.join('')) { //player has won
+                                console.log("gg");
+                                $(".gameRes").append(
+                                    `<b style="font-size: 2em;">YOU WON! Click Start New Game to play again<b>`);
+                                disableLetters();
+                            }
+                        }
+                    }
+
+                } else {
+
+                    misses++;
+                    $(this).css("visibility", "hidden"); //hide the letter
+                    misses === 1 ? $(".rope1").css("visibility", "visible") : '';
+                    misses === 2 ? $(".rope2").css("visibility", "visible") : '';
+                    misses === 3 ? $(".head").css("visibility", "visible") : '';
+                    misses === 4 ? $(".neck").css("visibility", "visible") : '';
+                    misses === 5 ? $(".torso").css("visibility", "visible") : '';
+                    misses === 6 ? $(".leg1").css("visibility", "visible") : '';
+                    if (misses === 7) {
+                        $(".leg2").css("visibility", "visible");
+                        $(".gameRes").append(
+                            `<b style="font-size: 2em;">You Lost. The word was "${currWord.toUpperCase()}". Click Start New Game to play again<b>`
+                        )
+                        disableLetters();
+                    };
+
+                    $(".misses").html(` ${misses} / 7`);
+                }
+
+            });
+
+            //resets the game
+            $(".newGame").click(function () {
+                misses = 0;
+                wordContainer = [];
+                $(".letter").attr("disabled", false);
+                $(".misses").html(` ${misses} / 7`);
+                $(".letter").css("visibility", "visible");
+                $(".gameRes").empty();
+                $(".game > div, .game > span").css("visibility", "hidden");
+                $(".word").empty();
+                currWord = dictionary[getIndex()];
+                makeSpace(currWord);
+            });
+
+            //some helper functions
+            function makeSpace(currWord) {
+                for (i of currWord) {
+                    $(".word").append(" _ ");
+                    wordContainer.push("_");
+                }
+            }
+
+            function disableLetters() {
+                $(".letter").attr("disabled", true);
+            }
+
+            function getIndex() {
+                let ranIndex = Math.floor((Math.random() * 20) + 0); //between 0 and n
+                return ranIndex
+            }
+        });
+    </script>
+</body>
+
+</html>
