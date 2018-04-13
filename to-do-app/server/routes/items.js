@@ -22,10 +22,9 @@ router.post('/item', (req, res, next) => {
  
     item.then((data)=>{
 
-        console.log('Updating list!');
         data.items.push(req.body.item);
         data.save();
-        res.json({msg:'success!', data:data.items});
+        res.json({msg:'Item Added!', data:data.items});
         
     },(e)=> {
         console.log('saving error!');
@@ -36,22 +35,16 @@ router.post('/item', (req, res, next) => {
 //update an item
 router.put('/item', (req, res, next) => {
 
-    console.log(req.body);
     let item = ItemsModel.findOne({});
  
     item.then((data)=>{
 
-        const index = data.items.indexOf(req.body.currItem);
-
-        if(index > -1) {
-            data.items.splice(index,1,req.body.itemToUpdate);
-            data.save();
-        }
-
-        res.json({msg:'success!', data:data.items});
+        data.items.splice(req.body.key,1,req.body.itemToUpdate);
+        data.save();
+        res.json({msg:'Item updated!', data:data.items});
         
     },(e)=> {
-        console.log('saving error!');
+        console.log('updating error!');
         res.json({msg:'error!'});
     });
 });
@@ -63,20 +56,14 @@ router.delete('/item', (req, res, next) => {
  
     item.then((data) => {
 
-        const index = data.items.indexOf(req.body.elem);
-
-        if(index > -1) {
-            data.items.splice(index,1);
-            data.save();
-        }
-
-        res.json({msg:'success!', data:data.items});
+        data.items.splice(req.body.key,1);
+        data.save();
+        res.json({msg:'Item deleted!', data:data.items});
         
     },(e)=> {
-        console.log('saving error!');
+        console.log('deleting error!');
         res.json({msg:'error!'});
     });
 });
-
 
 module.exports = router;

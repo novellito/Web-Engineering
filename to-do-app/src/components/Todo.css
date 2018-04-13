@@ -1,61 +1,59 @@
 .input-flex-container {
-    display:flex;
+    display: flex;
     flex-direction: column;
     margin: auto;
 }
 
-
 h2 {
-    margin-bottom:0px;
+    margin-bottom: 0px;
 }
 
-
 .input-flex-container input {
-    width:200px;
+    width: 200px;
 }
 
 .article-title {
-    margin-bottom:0px;
+    margin-bottom: 0px;
 }
 
 ul {
-    padding-left:0px;
+    padding-left: 0px;
 }
+
 .em-spiral_note_pad {
-    width:.8em;
-    height:.8em;
+    width: .8em;
+    height: .8em;
 }
 
 .item {
     display: inline;
-    margin-left:.5em;
-    font-size:2.8em;
+    margin-left: .5em;
+    font-size: 2.8em;
 }
 
 ul li:before {
-    content:""; /**remove unwanted style*/
+    content: "";   /*remove unwanted style*/
 }
 
-.btn-danger,.btn-success {
+.btn-danger,
+.btn-success {
     position: relative;
-    bottom:12px;
+    bottom: 12px;
 }
 
 .btn-secondary {
-    margin-top:10px;
+    margin-top: 10px;
 }
 
 @media (min-width: 450px) {
     .input-flex-container {
         flex-direction: row;
     }
-    
     .input-flex-container input {
-        width:500px;
-        margin-right:2em;
+        width: 500px;
+        margin-right: 2em;
     }
-
     .btn-secondary {
-        margin-top:0px;
+        margin-top: 0px;
     }
 }

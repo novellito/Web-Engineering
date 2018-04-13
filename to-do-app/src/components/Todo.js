@@ -19,14 +19,13 @@ class Todo extends Component {
 
             fetch('/api/item', { // here we update the db first before making it visual
                 method:'PUT',
-                body:JSON.stringify({currItem:updatedList[this.state.itemToUpdateKey], itemToUpdate:this.state.listItem}),
+                body:JSON.stringify({key:this.state.itemToUpdateKey, itemToUpdate:this.state.listItem}),
                 headers: new Headers({'Content-Type':'application/json'})
                
             }).then(res => res.json()).then(res=>console.log(res));
 
             updatedList[this.state.itemToUpdateKey] = this.state.listItem;
-            console.log(updatedList)
-            this.setState({listItems: updatedList, listItem:'',updating:false},()=> console.log(this.state.listItems));
+            this.setState({listItems: updatedList, listItem:'',updating:false});
          
         }
 
@@ -43,11 +42,12 @@ class Todo extends Component {
     }
 
     // delete an item visually & update database
-    deleteItem = (elem) => {
-        this.setState({listItems:this.state.listItems.filter(item=> item !== elem)});
+    deleteItem = (key) => {
+        this.setState({listItems:this.state.listItems.filter((item,index)=> index !== key )});
+
         fetch('/api/item', {
             method:'DELETE',
-            body:JSON.stringify({elem}),
+            body:JSON.stringify({key}),
             headers: new Headers({'Content-Type':'application/json'})
            
         }).then(res => res.json()).then(res=>console.log(res))
@@ -58,10 +58,12 @@ class Todo extends Component {
         this.setState({listItem:elem,updating:true,itemToUpdateKey:key});
     }
 
+    // updates the current input fields value to state
     onInputChange = (e) => {
         this.setState({listItem:e.target.value});
     }
 
+    // fetch the items from the database
     componentWillMount() {
         fetch(`/api/item`)
             .then(res => res.json())
@@ -77,14 +79,14 @@ class Todo extends Component {
             <h2><i className="em em-spiral_note_pad"></i> My List <i className="em em-spiral_note_pad"></i></h2>
 
             <div className="container">
-                    <ul>
-                        {this.state.listItems && this.state.listItems.map((item,key)=> 
-                        <li className={key} key={key}> 
-                            <button onClick={(key)=>this.deleteItem(item)} className="btn-danger btn-small "><i className="em em-x"></i></button>
-                            <button onClick={()=>this.updateItem(item,key)} className="btn-success btn-small "><i className="em em-pencil2"></i></button>
-                            <p className="item ">{item}</p>
-                        </li>)}
-                    </ul>
+                <ul>
+                    {this.state.listItems && this.state.listItems.map((item,key)=> 
+                    <li key={key}> 
+                        <button onClick={()=>this.deleteItem(key)} className="btn-danger btn-small "><i className="em em-x"></i></button>
+                        <button onClick={()=>this.updateItem(item,key)} className="btn-success btn-small "><i className="em em-pencil2"></i></button>
+                        <p className="item ">{item}</p>
+                    </li>)}
+                </ul>
             </div>
 
             <div className="row">
