@@ -1,0 +1,39 @@
+.input-flex-container {
+    display:flex;
+    flex-direction: row;
+    margin: auto;
+}
+
+.flex-list {
+    display: flex;
+    margin:auto;
+}
+
+.input-flex-container input {
+    width:500px;
+    margin-right:2em;
+}
+
+.article-title {
+    margin-bottom:0px;
+}
+
+ul {
+    padding-left:0px;
+}
+
+.item {
+    text-align: center;
+    display: inline;
+    margin-left:.5em;
+    font-size:3em;
+}
+
+ul li:before {
+    content:""; /**remove unwanted style*/
+}
+
+ul li {
+    display: flex;
+    margin: 0px;
+}
