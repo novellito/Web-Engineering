@@ -6,7 +6,7 @@ const items = require('./routes/items');
 const ItemsModel = require("./models/item");
 
 const app = express();
-const port = 3001;
+const port = 5000;
 
 mongoose.Promise = global.Promise;
 

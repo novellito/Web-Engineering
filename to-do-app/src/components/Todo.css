@@ -1,17 +1,17 @@
 .input-flex-container {
     display:flex;
-    flex-direction: row;
+    flex-direction: column;
     margin: auto;
 }
 
-.flex-list {
-    display: flex;
-    margin:auto;
+
+h2 {
+    margin-bottom:0px;
 }
 
+
 .input-flex-container input {
-    width:500px;
-    margin-right:2em;
+    width:200px;
 }
 
 .article-title {
@@ -21,19 +21,41 @@
 ul {
     padding-left:0px;
 }
+.em-spiral_note_pad {
+    width:.8em;
+    height:.8em;
+}
 
 .item {
-    text-align: center;
     display: inline;
     margin-left:.5em;
-    font-size:3em;
+    font-size:2.8em;
 }
 
 ul li:before {
     content:""; /**remove unwanted style*/
 }
 
-ul li {
-    display: flex;
-    margin: 0px;
+.btn-danger,.btn-success {
+    position: relative;
+    bottom:12px;
+}
+
+.btn-secondary {
+    margin-top:10px;
+}
+
+@media (min-width: 450px) {
+    .input-flex-container {
+        flex-direction: row;
+    }
+    
+    .input-flex-container input {
+        width:500px;
+        margin-right:2em;
+    }
+
+    .btn-secondary {
+        margin-top:0px;
+    }
 }
