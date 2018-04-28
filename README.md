@@ -9,6 +9,11 @@ The project has been set up with foreman so simply `cd` into the project and run
 
 ![todo-app](https://user-images.githubusercontent.com/21237266/38758222-d9d13de2-3f24-11e8-8f4f-00f7bbe731a5.JPG)
 
+# Vuetiful Chat
+A chat application that uses Mongodb, Express, Vue.js, Node.js and Socket.io
+
+![chatsnippet](https://user-images.githubusercontent.com/21237266/39401529-c4f002ea-4afb-11e8-971b-4f3eaa1c0630.png)
+
 ## Bootstrap Mailer
 
 A project to play around with the features of Bootstrap
