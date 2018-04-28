@@ -8,8 +8,6 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const user = require('./routes/user');
 const message = require('./routes/message');
-const UserModel = require('./models/user');
-
 const port = 5000;
 
 mongoose.Promise = global.Promise;
@@ -17,7 +15,7 @@ mongoose.Promise = global.Promise;
 mongoose.connect(
   'mongodb://localhost:27017/chatApp',
   {},
-  err => (err ? console.log(err) : console.log('Connected!'))
+  err => (err ? console.log(err) : console.log('Connected to database!'))
 );
 app.use(cors());
 app.use(bodyParser.json());
@@ -27,9 +25,8 @@ app.use('/api', message);
 
 let clients = [];
 io.on('connection', socket => {
-  console.log('User Connected!');
-
   socket.on('storeClient', data => {
+    console.log('New client stored!');
     let info = {
       clientId: data.clientId,
       socketId: socket.id
@@ -40,6 +37,8 @@ io.on('connection', socket => {
   socket.on('message', data => {
     // search for the client and send the message if they are online
     let clientSearch = clients.find(client => client.clientId === data.to);
+    console.log(socket.id);
+    console.log(data);
     if (clientSearch !== undefined) {
       socket.to(clientSearch.socketId).emit('sendMessage', {
         msg: data.msg,
@@ -47,6 +46,10 @@ io.on('connection', socket => {
         msgId: data.msgId
       });
     } else {
+      socket.emit('updateOfflineUser', {
+        msgId: data.msgId,
+        to: data.to
+      });
       console.log('user not online');
     }
   });

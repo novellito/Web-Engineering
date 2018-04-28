@@ -1,6 +1,6 @@
 const MessageModel = require('../models/message');
 
-// add a message to the schema
+// add a message to the database
 exports.addMessage = (req, res) => {
   const message = new MessageModel({
     content: req.body.msg,

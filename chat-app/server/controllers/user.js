@@ -62,6 +62,7 @@ exports.getUserById = (req, res) => {
   );
 };
 
+// add new user to the schema
 exports.addNewUser = (req, res) => {
   const newUser = {
     username: req.body.data.username,

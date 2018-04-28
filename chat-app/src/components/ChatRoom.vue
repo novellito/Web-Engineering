@@ -17,12 +17,10 @@
               </label>
             </div>
             <div class="logs">
-
               <SentMessages v-if="chatRoomLoaded && !msgToggle" :sentMessages="sentMessages"></SentMessages>
               <ReceivedMessages v-if="chatRoomLoaded && msgToggle" :receivedMessages="receivedMessages"></ReceivedMessages>
             </div>
           </div>
-
         </div>
       </div>
       <div class="col s12 m6">
@@ -121,7 +119,6 @@ export default {
         }
       });
   },
-
   methods: {
     // This method handles what happends when a message is sent
     sendMessage: function() {
@@ -134,8 +131,7 @@ export default {
         // Add message to the current chat log
         this.currChat.push({
           prefix: `To ${to}:`,
-          msg: `
-          ${this.message}`,
+          msg: `${this.message}`,
           id: Math.random()
         });
         this.sentMessages.push({
@@ -148,8 +144,8 @@ export default {
           .post(`http://localhost:5000/api/message`, {
             msg: this.message,
             from: this.currUser,
-            to,
-            sending: true
+            sending: true,
+            to
           })
           .then(res => {
             this.$socket.emit('message', {
@@ -180,6 +176,7 @@ export default {
     }
   },
   sockets: {
+    // emitted when a user sends a message to another user that is online
     sendMessage: function(data) {
       this.currChat.push({
         prefix: `From ${data.from}:`,
@@ -197,6 +194,17 @@ export default {
         })
         .then(res => {
           console.log(res);
+        });
+    },
+    // update the users received messages even if theyre offline
+    updateOfflineUser: function(data) {
+      axios
+        .put(`http://localhost:5000/api/user/${data.to}`, {
+          msg: data.msgId,
+          receiving: true
+        })
+        .then(res => {
+          console.log('offline user updated!');
         });
     }
   }
