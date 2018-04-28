@@ -1,14 +1,13 @@
 <template>
   <div id="chat">
-    <router-link to="/" class="nav-link">Home</router-link>
-      <div class="row">
-        <div class="col s3">
-          <div class="card blue-grey darken-1">
-            <div class="card-content white-text">
-              <span class="card-title">Chat Log</span>
-              <SentMessages v-if="chatRoomLoaded && !msgToggle" :sentMessages="sentMessages"></SentMessages>
-              <ReceivedMessages v-if="chatRoomLoaded && msgToggle" :receivedMessages="receivedMessages"></ReceivedMessages>
-            </div>
+    <router-link to="/" class="nav-link btn-home btn waves-effect waves-light">
+      <i class="fa fa-home fa-2x"></i>
+    </router-link>
+    <div class="row">
+      <div class="col s12 m3">
+        <div class="card chat-log grey-card">
+          <div class="card-content white-text">
+            <span class="card-title">Chat Log</span>
             <div class="switch">
               <label>
                 Sent
@@ -17,43 +16,55 @@
                 Received
               </label>
             </div>
-          </div>
-        </div>
-        <div class="col s6">
-          <div class="card blue-grey darken-1">
-            <div class="card-content white-text">
-              <span class="card-title">Chat Room</span>
-              <p v-if="!valid">
-                Please Enter a message & select a recepient!
-              </p>
-              <ul>
-                <li v-for="currMsg in currChat" :key="currMsg.id">
-                  <p> {{currMsg.msg}}</p>
-                </li>
-              </ul>
+            <div class="logs">
+
+              <SentMessages v-if="chatRoomLoaded && !msgToggle" :sentMessages="sentMessages"></SentMessages>
+              <ReceivedMessages v-if="chatRoomLoaded && msgToggle" :receivedMessages="receivedMessages"></ReceivedMessages>
             </div>
-            <div class="card-action">
+          </div>
+
+        </div>
+      </div>
+      <div class="col s12 m6">
+        <div class="card grey-card">
+          <div class="card-content curr-chat white-text">
+            <span class="card-title">Current Chat</span>
+            <p class="feedback" v-if="!valid">
+              Please enter a message & select a recepient!
+            </p>
+            <ul class="current-chat">
+              <li v-for="currMsg in currChat" :key="currMsg.id">
+                <span style="color:#f90;">{{currMsg.prefix}}</span>
+                <span> {{currMsg.msg}}</span>
+              </li>
+            </ul>
+          </div>
+          <div class="card-action">
+            <div class="input-field">
+              <label for="message">message</label>
               <input id="message" @keyup.enter="sendMessage" type="text" v-model="message" class="msg">
-              <button v-on:click="sendMessage" class="btn waves-effect waves-light" type="submit" name="action">Send</button>
             </div>
-          </div>
-        </div>
-        <div v-if="chatRoomLoaded" class="col s3">
-          <div class="card blue-grey darken-1">
-            <div class="card-content white-text">
-              <span class="card-title">Send To</span>
-              <ul>
-                <li v-for="recepient in recepients" :key="recepient.userId">
-                  <label>
-                    <input v-model="currRec" v-bind:value="recepient.userId +' '+recepient.username" name="currRec" type="radio" />
-                    <span ref="toUser">{{recepient.username}} </span>
-                  </label>
-                </li>
-              </ul>
-            </div>
+            <button v-on:click="sendMessage" class="btn btn-main waves-effect waves-light" type="submit" name="action">Send</button>
           </div>
         </div>
       </div>
+      <div v-if="chatRoomLoaded" class="col s12 m3">
+        <div class="card grey-card">
+          <div class="card-content white-text">
+            <span class="card-title">Send To</span>
+            <ul>
+              <li v-for="recepient in recepients" :key="recepient.userId">
+                <label>
+                  <input @keyup.enter="sendMessage" v-model="currRec" v-bind:value="recepient.userId +' '+recepient.username" name="currRec"
+                    type="radio" />
+                  <span>{{recepient.username}} </span>
+                </label>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 <script>
@@ -118,18 +129,19 @@ export default {
         this.valid = false;
       } else {
         // format recepient
-        const to = this.currRec.substr(
-          this.currRec.indexOf(' '),
-          this.currRec.length
-        );
+        const to = this.currRec.match(/[^ ]*$/)[0];
 
         // Add message to the current chat log
         this.currChat.push({
-          msg: `To ${to}: ${this.message}`,
+          prefix: `To ${to}:`,
+          msg: `
+          ${this.message}`,
           id: Math.random()
         });
-
-        this.sentMessages.push({ to, content: this.message });
+        this.sentMessages.push({
+          to,
+          content: this.message
+        });
 
         // Add the current message to the message schema
         axios
@@ -170,8 +182,13 @@ export default {
   sockets: {
     sendMessage: function(data) {
       this.currChat.push({
-        msg: `From ${data.from}: ${data.msg}`,
+        prefix: `From ${data.from}:`,
+        msg: `${data.msg}`,
         id: Math.random()
+      });
+      this.receivedMessages.push({
+        from: data.from,
+        content: data.msg
       });
       axios
         .put(`http://localhost:5000/api/user/${this.$route.params.userId}`, {
@@ -185,3 +202,30 @@ export default {
   }
 };
 </script>
+<style scoped>
+.card-action {
+  border: none;
+}
+
+.current-chat,
+.logs {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  word-wrap: break-word;
+  word-break: break-all;
+  text-align: left;
+}
+
+.card-content.curr-chat {
+  height: 475px;
+  overflow: auto;
+  overflow-x: hidden;
+}
+
+.chat-log {
+  height: 600px;
+  overflow: auto;
+  overflow-x: hidden;
+}
+</style>

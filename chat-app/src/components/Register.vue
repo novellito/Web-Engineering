@@ -1,36 +1,34 @@
 <template>
   <div id="register">
-    <router-link to="/" class="nav-link">Home</router-link>
+ 
     <div class="container center-align">
-
       <div class="row">
         <div class="col s12 m6 offset-m3">
-          <div class="card blue-grey darken-1">
+          <div class="card grey-card">
             <div class="card-content white-text">
               <span class="card-title">Register</span>
-              <span v-if="!valid">Please fill in all fields</span>
+              <span class="feedback" v-if="!valid">Please fill in all fields</span>
               <div class="row">
                 <div class="input-field col s12">
                   <input @keydown.enter="register" id="username" v-model="username" type="text" class="validate">
                   <label for="username">username</label>
                 </div>
               </div>
-
               <div class="row">
                 <div class="input-field col s12">
                   <input @keydown.enter="register" id="password" v-model="password" type="password" class="validate">
                   <label for="password">password</label>
                 </div>
-                 <button v-on:click="register"  class="btn waves-effect waves-light" type="submit" name="action">Send
-              </button>
+                <router-link to="/" class="nav-link btn-home btn waves-effect waves-light">
+                  <i class="fa fa-home fa-2x"></i>    
+                </router-link>
+                 <button v-on:click="register"  class="btn btn-main waves-effect waves-light" type="submit" name="action">Register</button>
               </div>
             </div>
-
           </div>
         </div>
       </div>
     </div>
-
   </div>
 </template>
 
@@ -67,3 +65,4 @@ export default {
   }
 };
 </script>
+

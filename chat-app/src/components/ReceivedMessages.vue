@@ -2,7 +2,8 @@
   <div id="received-messages">
     <ul>
       <li v-for="currMsg in receivedMessages" :key="currMsg._id">
-        <p>From {{currMsg.from}} : {{currMsg.content}}</p>
+        <span style="color:#f90;">From {{currMsg.from}}: </span>
+        <span>{{currMsg.content}}</span>
       </li>
     </ul>
   </div>

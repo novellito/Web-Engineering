@@ -10,7 +10,6 @@ exports.listRecepients = (req, res) => {
 
   user.then(
     data => {
-      //   console.log(data);
       res.json({ users: data });
     },
     e => {
@@ -28,7 +27,6 @@ exports.verifyLogin = (req, res) => {
 
   user.then(
     data => {
-      //   console.log(data);
       data === null
         ? res.json({ found: false })
         : res.json({ found: true, data });
@@ -41,16 +39,18 @@ exports.verifyLogin = (req, res) => {
 
 // retrieve a user by their userId
 exports.getUserById = (req, res) => {
-  let user = UserModel.findOne({
-    userId: `${req.params.userId}`
-  })
+  let user = UserModel.findOne(
+    {
+      userId: `${req.params.userId}`
+    },
+    { sentMessages: { $slice: 50 }, receivedMessages: { $slice: 50 } } // limit # of messages that are sent
+  )
     .populate('sentMessages')
     .populate('receivedMessages')
     .exec();
 
   user.then(
     data => {
-      // console.log(data);
       data === null
         ? res.json({ found: false })
         : res.json({ found: true, data });

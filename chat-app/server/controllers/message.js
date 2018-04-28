@@ -5,7 +5,7 @@ exports.addMessage = (req, res) => {
   const message = new MessageModel({
     content: req.body.msg,
     from: req.body.from,
-    to: req.body.to.trim()
+    to: req.body.to
   });
   message.save().then(
     data => {
